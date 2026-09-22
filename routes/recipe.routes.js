@@ -37,4 +37,9 @@ router.get('/:rID' , async (req,res)=>{
     res.render('recipe/recipe-details.ejs' , {recipe})
 })
 
+router.delete('/:rID', async(req , res) =>{
+    const deletedRecipe = await Recipe.findByIdAndDelete(req.params.rID)
+    res.redirect('/recipe')
+})
+
 module.exports = router;

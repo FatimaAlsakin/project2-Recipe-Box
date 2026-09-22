@@ -21,6 +21,12 @@
 
     <h3>Steps: </h3>
     <p><%= recipe.steps %></p>
+
+    <% if(recipe.owner._id.equals(user._id)) {%>
+        <form action="/recipe/<%= recipe._id %>?_method=Delete" method="post">
+          <button>Delete Recipe</button>
+        </form>
+    <% } %>
     
 </body>
 </html>
