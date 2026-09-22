@@ -42,4 +42,27 @@ router.delete('/:rID', async(req , res) =>{
     res.redirect('/recipe')
 })
 
+router.get('/:rID/update' , isSignedIn ,async (req,res)=>{
+    const recipe = await Recipe.findById(req.params.rID).populate('ingredients')
+    res.render('recipe/recipe-update.ejs' , {recipe})
+})
+
+router.put('/:rID' , async (req,res)=>{
+    
+    const names = [].concat(req.body.ingreName || []);
+    const quantities = [].concat(req.body.ingreQuan || []);
+    req.body.ingredients = names
+        .map((name, i) => ({ name, quantity: quantities[i] }))
+        .filter(ing => ing.name.trim() !== '');
+
+    const updatedRecipe = await Recipe.findByIdAndUpdate(req.params.rID , {
+        title: req.body.title,
+        description: req.body.description,
+        ingredients:req.body.ingredients,
+        cookTime: req.body.cookTime,
+        steps: req.body.steps,
+    })
+    res.redirect(`/recipe/${req.params.rID}`)
+})
+
 module.exports = router;
