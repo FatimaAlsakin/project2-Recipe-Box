@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creat new Recipe</title>
+</head>
+<body>
+    <h1>Creat new Recipe</h1>
+
+    <form action="/recipe" method="POST">
+   
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title">
+        <br><br>
+        <label for="description">Description:</label>
+        <br>
+        <textarea id="description" name="description" ></textarea>
+        <br><br>
+        <label for="Ingredients">Ingredients: </label>
+        <br>
+        <div id="ingredientList">
+            <div class="ingredientRow">
+                <label>Name:</label>
+                <input type="text" name="ingreName[]">
+                <label>Quantity:</label>
+                <input type="text" name="ingreQuan[]">
+            </div>
+        </div>
+        <button type="button" onclick="addIngredientRow()">Add Ingredient</button>
+        <br><br>
+        <br><br>
+        <label for="cookTime">Cook Time:</label>
+        <input type="number" name="cookTime" id="cookTime">
+        <br><br>
+        <label for="steps">Steps:</label>
+        <textarea id="steps" name="steps" ></textarea>
+        <br>
+        <button type="submit" class="primary">Create Recipe</button>
+
+  </form>
+</body>
+</html>
+
+
+    <script>
+        function addIngredientRow() {
+            const list = document.getElementById('ingredientList');
+            const row = document.createElement('div');
+            row.className = 'ingredientRow';
+            row.innerHTML = `
+                <label>Name:</label>
+                <input type="text" name="ingreName[]">
+                <label>Quantity:</label>
+                <input type="text" name="ingreQuan[]">
+            `;
+            list.appendChild(row);
+            console.log(list)
+        }
+    </script>
