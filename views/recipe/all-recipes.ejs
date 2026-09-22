@@ -7,5 +7,11 @@
 </head>
 <body>
     <h1>All Recipes</h1>
+
+    <% for (let oneRecipe of allRecipes ){ %>
+        <h3><%= oneRecipe.title %></h3>
+        <p><%= oneRecipe.description %></p>
+        <a href="/recipe/<%= oneRecipe._id %>">View Details</a>
+    <% } %>
 </body>
 </html>

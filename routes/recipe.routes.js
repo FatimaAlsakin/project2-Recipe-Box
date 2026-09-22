@@ -27,8 +27,14 @@ router.post('/', async (req, res) => {
     res.redirect('/recipe')
 });
 
-router.get('/',(req,res)=>{
-    res.render('recipe/all-recipes.ejs')
+router.get('/', async (req,res)=>{
+    const allRecipes = await Recipe.find()
+    res.render('recipe/all-recipes.ejs' , {allRecipes})
+})
+
+router.get('/:rID' , async (req,res)=>{
+    const recipe = await Recipe.findById(req.params.rID).populate('ingredients')
+    res.render('recipe/recipe-details.ejs' , {recipe})
 })
 
 module.exports = router;

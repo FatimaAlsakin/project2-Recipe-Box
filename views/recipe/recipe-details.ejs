@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Recipe Details</h1>
+
+    <h2><%= recipe.title %></h2>
+    <h3>Description:</h3>
+    <p><%= recipe.description %></p>
+    <h3>Cook Time: <%= recipe.cookTime %></h3>
+    <h3>Ingredients:</h3>
+    
+    <ul><% for (let oneIngredient of recipe.ingredients) {%>
+        <li><%= oneIngredient.name %>: <span><%= oneIngredient.quantity %></span></li>
+    <% } %>
+    </ul>
+
+    <h3>Steps: </h3>
+    <p><%= recipe.steps %></p>
+    
+</body>
+</html>
