@@ -37,12 +37,30 @@
 
 
         <% for (let oneComment of comments) { %>
-            <div id="comment"><strong><%= oneComment.author.username %>:</strong> <%= oneComment.text %></div>
+            <div id="comment-display-<%= oneComment._id %>">
+                <strong><%= oneComment.author.username %>:</strong> 
+                <%= oneComment.text %>
+                <br>
+                <% if (user && oneComment.author._id.equals(user._id)) { %>
+                    <button type="button" onclick="toggleEdit('<%= oneComment._id %>')">Edit</button>
+                <% } %>
+
             <% if(user && (oneComment.author._id.equals(user._id) || recipe.owner.equals(user._id))) {%>
                 <form action="/comment/<%= oneComment._id %>?_method=Delete" method="post">
                 <button>Delete Comment</button>
                 </form>
             <% } %>
+            </div>
+
+
+            <% if(user && oneComment.author._id.equals(user._id)) {%>
+                <form action="/comment/<%= oneComment._id %>?_method=PUT" method="post"
+                      id="comment-edit-<%= oneComment._id %>" style="display:none;">
+                    <textarea name="text"><%= oneComment.text %></textarea>
+                    <button type="submit">Save</button>
+                    <button type="button" onclick="toggleEdit('<%= oneComment._id %>')">Cancel</button>
+                </form>
+            <% } %> 
         <% } %>
   
         <br>
@@ -54,6 +72,16 @@
         <button type="submit">Post Comment</button>
     </form>
     
+    <script>
+    function toggleEdit(commentId) {
+        const display = document.getElementById('comment-display-' + commentId);
+        const editForm = document.getElementById('comment-edit-' + commentId);
+        const isEditing = editForm.style.display !== 'none';
+
+        display.style.display = isEditing ? '' : 'none';
+        editForm.style.display = isEditing ? 'none' : '';
+    }
+</script>
 
 </body>
 </html>
