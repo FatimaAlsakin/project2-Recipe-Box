@@ -1,5 +1,6 @@
 const router = require("express").Router()
 const Recipe = require('../models/Recipe')
+const Comment = require('../models/Comment.js')
 const isSignedIn = require('../middleware/is-signed-in.js');
 
 
@@ -34,7 +35,8 @@ router.get('/', async (req,res)=>{
 
 router.get('/:rID' , async (req,res)=>{
     const recipe = await Recipe.findById(req.params.rID).populate('ingredients')
-    res.render('recipe/recipe-details.ejs' , {recipe})
+    const comments = await Comment.find({recipe: req.params.rID}).populate('author')
+    res.render('recipe/recipe-details.ejs' , {recipe , comments})
 })
 
 router.delete('/:rID', async(req , res) =>{

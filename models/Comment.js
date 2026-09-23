@@ -5,9 +5,13 @@ const commentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    auther:{
+    author:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    recipe:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Recipe'
     }
 }, {timestamps: true});
 

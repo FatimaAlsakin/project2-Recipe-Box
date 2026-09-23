@@ -12,6 +12,7 @@
     <h3>Description:</h3>
     <p><%= recipe.description %></p>
     <h3>Cook Time: <%= recipe.cookTime %></h3>
+        
     <h3>Ingredients:</h3>
     
     <ul><% for (let oneIngredient of recipe.ingredients) {%>
@@ -22,13 +23,32 @@
     <h3>Steps: </h3>
     <p><%= recipe.steps %></p>
 
-    <% if(recipe.owner._id.equals(user._id)) {%>
+    <% if(user && recipe.owner._id.equals(user._id)) {%>
         <form action="/recipe/<%= recipe._id %>?_method=Delete" method="post">
           <button>Delete Recipe</button>
         </form>
 
         <a href="/recipe/<%= recipe._id %>/update">Edit Recipe</a>
     <% } %>
+
+    <hr>
+
+    <h3>Comments:</h3>
+
+
+        <% for (let oneComment of comments) { %>
+            <div id="comment"><strong><%= oneComment.author.username %>:</strong> <%= oneComment.text %></div>
+        <% } %>
+  
+        <br>
+    <form action="/comment/<%= recipe._id %>" method="POST">
+        <label for="text">Add a comment:</label>
+        <br>
+        <textarea id="text" name="text"></textarea>
+        <br>
+        <button type="submit">Post Comment</button>
+    </form>
     
+
 </body>
 </html>
