@@ -38,6 +38,11 @@
 
         <% for (let oneComment of comments) { %>
             <div id="comment"><strong><%= oneComment.author.username %>:</strong> <%= oneComment.text %></div>
+            <% if(user && (oneComment.author._id.equals(user._id) || recipe.owner.equals(user._id))) {%>
+                <form action="/comment/<%= oneComment._id %>?_method=Delete" method="post">
+                <button>Delete Comment</button>
+                </form>
+            <% } %>
         <% } %>
   
         <br>

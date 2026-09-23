@@ -12,4 +12,9 @@ router.post('/:rID',isSignedIn, async(req,res)=>{
     res.redirect(`/recipe/${req.params.rID}`)
 })
 
+router.delete('/:cID' , async (req,res) =>{ 
+    const deletedComment = await Comment.findByIdAndDelete(req.params.cID)
+     res.redirect(`/recipe/${deletedComment.recipe}`)
+})
+
 module.exports = router;
