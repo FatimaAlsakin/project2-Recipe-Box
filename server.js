@@ -17,6 +17,7 @@ const authController = require("./routes/auth.routes.js");
 const indexController = require("./routes/index.routes.js");
 const recipeController = require("./routes/recipe.routes.js");
 const commentController = require("./routes/comment.routes.js");
+const adminController = require("./routes/admin.routes.js");
 
 // Middleware
 app.use(express.static('public')) // my app will serve all static files from public folder
@@ -56,6 +57,7 @@ app.use('/auth',authController)
 app.use('/',indexController)
 app.use('/recipe',recipeController)
 app.use('/comment', commentController )
+app.use('/admin', adminController )
 
 
 

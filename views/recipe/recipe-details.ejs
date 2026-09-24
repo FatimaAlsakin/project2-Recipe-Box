@@ -23,11 +23,11 @@
     <h3>Steps: </h3>
     <p><%= recipe.steps %></p>
 
-    <% if(user && recipe.owner._id.equals(user._id)) {%>
+    <% if(user && (recipe.owner._id.equals(user._id) || user.isAdmin) ) {%>
         <form action="/recipe/<%= recipe._id %>?_method=Delete" method="post">
           <button>Delete Recipe</button>
         </form>
-
+    <% } if( user && recipe.owner._id.equals(user._id) ) {%>
         <a href="/recipe/<%= recipe._id %>/update">Edit Recipe</a>
     <% } %>
 
@@ -45,7 +45,7 @@
                     <button type="button" onclick="toggleEdit('<%= oneComment._id %>')">Edit</button>
                 <% } %>
 
-            <% if(user && (oneComment.author._id.equals(user._id) || recipe.owner.equals(user._id))) {%>
+            <% if(user && (oneComment.author._id.equals(user._id) || recipe.owner.equals(user._id) || user.isAdmin)) {%>
                 <form action="/comment/<%= oneComment._id %>?_method=Delete" method="post">
                 <button>Delete Comment</button>
                 </form>
