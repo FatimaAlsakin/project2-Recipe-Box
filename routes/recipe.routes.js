@@ -2,14 +2,14 @@ const router = require("express").Router()
 const Recipe = require('../models/Recipe')
 const Comment = require('../models/Comment.js')
 const isSignedIn = require('../middleware/is-signed-in.js');
-
+const upload = require('../config/multer.js');
 
 
 router.get('/new', isSignedIn, (req,res)=>{
     res.render('recipe/new-recipe.ejs')
 })
 
-router.post('/', isSignedIn, async (req, res) => {
+router.post('/', isSignedIn, upload.single('image'), async (req, res) => {
 
     if (!req.body.title || !req.body.description || !req.body.steps || !req.body.ingreName || !req.body.ingreQuan) {
         return res.render('recipe/new-recipe.ejs', { error: 'Title, Ingredients, and steps are required.' });
@@ -27,7 +27,8 @@ router.post('/', isSignedIn, async (req, res) => {
         ingredients:req.body.ingredients,
         cookTime: req.body.cookTime,
         steps: req.body.steps,
-        owner: req.session.user._id
+        owner: req.session.user._id,
+        image: req.file ? '/uploads/' + req.file.filename : undefined,
     })
     res.redirect('/recipe')
 });

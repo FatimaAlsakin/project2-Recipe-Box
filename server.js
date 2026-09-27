@@ -7,6 +7,7 @@ const session = require('express-session');
 const methodOverride = require('method-override')
 const {MongoStore} = require("connect-mongo");
 const connectToDB = require('./db.js')
+const multer = require('multer');
 
 // middleware imports
 const isSignedIn = require("./middleware/is-signed-in.js");
@@ -43,13 +44,18 @@ app.use(
 );
 app.use(passUserToView)
 
+// Multer configuration for file uploads
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, 'uploads')
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, file.fieldname + '-' + Date.now())
+//     }
+// });
 
-
-
-
-
-
-
+// const upload = multer({ storage: storage });
+const upload = require('./config/multer.js');
 
 
 // Routes go here
