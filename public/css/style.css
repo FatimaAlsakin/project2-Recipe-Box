@@ -1,0 +1,359 @@
+/* ============================================
+   Recipe Box — Stylesheet
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --ink: #2b2118;
+  --ink-soft: #5a4d3f;
+  --parchment: #efe6d8;
+  --card: #fffaf0;
+  --herb: #4b6043;
+  --herb-dark: #37472f;
+  --paprika: #b8562f;
+  --paprika-dark: #93441f;
+  --butter: #e3b23c;
+  --line: #ddd0b8;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0 24px 64px;
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ---------- Typography ---------- */
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+
+h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  padding-top: 32px;
+}
+
+h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--herb-dark);
+  margin-top: 28px;
+}
+
+p {
+  max-width: 65ch;
+  color: var(--ink-soft);
+}
+
+a {
+  color: var(--paprika);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 32px 0;
+}
+
+/* ---------- Nav ---------- */
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 2px solid var(--herb);
+  margin-bottom: 8px;
+}
+
+nav a {
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: var(--ink);
+}
+
+nav a:hover {
+  color: var(--paprika);
+  text-decoration: none;
+}
+
+/* ---------- Buttons ---------- */
+
+button,
+.button {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background: var(--herb);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+button:hover {
+  background: var(--herb-dark);
+}
+
+/* Delete buttons — anything inside a form pointed at ?_method=DELETE
+   reads as destructive, so give it the paprika treatment */
+form[action*="DELETE" i] button,
+form[action*="_method=Delete" i] button {
+  background: var(--paprika);
+}
+
+form[action*="DELETE" i] button:hover,
+form[action*="_method=Delete" i] button:hover {
+  background: var(--paprika-dark);
+}
+
+button[type="button"] {
+  background: transparent;
+  color: var(--herb-dark);
+  border: 1px solid var(--herb);
+}
+
+button[type="button"]:hover {
+  background: var(--herb);
+  color: #fff;
+}
+
+/* ---------- Forms ---------- */
+
+form {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 24px;
+  margin: 16px 0;
+  max-width: 520px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--herb-dark);
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="file"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--butter);
+  outline-offset: 1px;
+}
+
+.ingredientRow {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ingredientRow input {
+  flex: 1;
+}
+
+/* ---------- Recipe grid (index) ---------- */
+
+.recipe-grid,
+main ul:has(> li a) {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.recipe-card,
+.recipe-grid li {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 18px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.recipe-card:hover,
+.recipe-grid li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(43, 33, 24, 0.12);
+}
+
+.recipe-card img,
+.recipe-grid img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+/* ---------- Recipe details ---------- */
+
+img[alt] {
+  max-width: 420px;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  margin: 8px 0 16px;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 6px;
+}
+
+/* Ingredient list: quiet, tabular feel */
+h3 + ul li span {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+/* ---------- Comments ---------- */
+
+[id^="comment-display-"] {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--butter);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 10px 0;
+}
+
+[id^="comment-display-"] strong {
+  color: var(--herb-dark);
+}
+
+[id^="comment-display-"] button {
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  margin-top: 8px;
+  margin-right: 6px;
+}
+
+[id^="comment-edit-"] {
+  margin-bottom: 16px;
+}
+
+/* ---------- Category nav (index filter) ---------- */
+
+nav + nav,
+main > nav {
+  border: none;
+  border-bottom: none;
+  gap: 12px;
+  padding: 0 0 20px;
+  flex-wrap: wrap;
+}
+
+main > nav a {
+  padding: 6px 14px;
+  border: 1px solid var(--herb);
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+main > nav a:hover {
+  background: var(--herb);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ---------- Admin table ---------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+th {
+  background: var(--herb);
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 600px) {
+  body {
+    padding: 0 16px 48px;
+  }
+
+  h1 {
+    font-size: 1.9rem;
+  }
+
+  form {
+    padding: 18px;
+  }
+
+  .ingredientRow {
+    flex-direction: column;
+  }
+}

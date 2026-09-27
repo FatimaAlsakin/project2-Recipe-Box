@@ -55,7 +55,7 @@ app.use(passUserToView)
 // });
 
 // const upload = multer({ storage: storage });
-const upload = require('./config/multer.js');
+const upload = require('./config/cloudinary.js');
 
 
 // Routes go here

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Document</title>
 </head>
 <body>
@@ -15,6 +16,8 @@
         <% if(! oneUser.isDeleted) {%>
        <h3>username:  <%= oneUser.username %></h3>
        <p>Admin: <%= oneUser.isAdmin %></p>
+
+       <div>
        <form action="/admin/toggle-admin/<%=oneUser._id %>?_method=PUT" method="post">
             <button><%= oneUser.isAdmin ? "Remove Admin" : "Make Admin" %></button>
        </form>
@@ -22,6 +25,7 @@
        <form action="/admin/delete/<%=oneUser._id %>?_method=PUT" method="post">
             <button>Delete User </button>
        </form>
+       </div>
     <% }} %>
 </body>
 </html>
