@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <title>Sign Up</title>
   </head>
   <body>
@@ -17,5 +18,18 @@
       <input type="password" name="confirmPassword" id="confirmPassword" />
       <button type="submit">Sign up</button>
     </form>
+
+    <% const signupError = typeof error !== 'undefined' ? error : ''; %>
+    <div id="signup-error" data-error="<%= signupError %>"></div>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <script>
+      const notyf = new Notyf({
+        position: {
+            x: 'right',
+            y: 'top'
+        }});
+      const signupError = document.getElementById('signup-error').dataset.error;
+      if (signupError) notyf.error(signupError);
+    </script>
   </body>
 </html>

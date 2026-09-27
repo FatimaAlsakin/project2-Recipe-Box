@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+
 </head>
 <body>
     <h1>Recipe Details</h1>
@@ -81,7 +83,17 @@
         display.style.display = isEditing ? '' : 'none';
         editForm.style.display = isEditing ? 'none' : '';
     }
-</script>
+    </script>
 
+<% const displayError = typeof error !== 'undefined' ? error : ''; %>
+<div id="page-error" data-error="<%= displayError %>"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+<script>
+    const notyf = new Notyf({ position: { x: 'right', y: 'top' } });
+    const pageError = document.getElementById('page-error').dataset.error;
+    if (pageError) notyf.error(pageError);
+</script>
+ 
 </body>
 </html>

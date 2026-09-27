@@ -3,6 +3,11 @@ const Comment = require('../models/Comment')
 const isSignedIn = require('../middleware/is-signed-in')
 
 router.post('/:rID',isSignedIn, async(req,res)=>{
+
+        if (!req.body.text) {
+        return res.redirect(`/recipe/${req.params.rID}?error=Comment text cannot be empty.`);
+    }
+
     const comment = await Comment.create({
         text: req.body.text,
         author: req.session.user._id,

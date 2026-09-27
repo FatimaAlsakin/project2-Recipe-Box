@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creat new Recipe</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+
 </head>
 <body>
     <h1>Creat new Recipe</h1>
@@ -39,6 +41,17 @@
         <button type="submit" class="primary">Create Recipe</button>
 
   </form>
+
+  <% const displayError = typeof error !== 'undefined' ? error : ''; %>
+<div id="page-error" data-error="<%= displayError %>"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+<script>
+    const notyf = new Notyf({ position: { x: 'right', y: 'top' } });
+    const pageError = document.getElementById('page-error').dataset.error;
+    if (pageError) notyf.error(pageError);
+</script>
+
 </body>
 </html>
 

@@ -5,11 +5,15 @@ const isSignedIn = require('../middleware/is-signed-in.js');
 
 
 
-router.get('/new',(req,res)=>{
+router.get('/new', isSignedIn, (req,res)=>{
     res.render('recipe/new-recipe.ejs')
 })
 
-router.post('/', async (req, res) => {
+router.post('/', isSignedIn, async (req, res) => {
+
+    if (!req.body.title || !req.body.description || !req.body.steps || !req.body.ingreName || !req.body.ingreQuan) {
+        return res.render('recipe/new-recipe.ejs', { error: 'Title, Ingredients, and steps are required.' });
+    }
 
     const names = [].concat(req.body.ingreName || []);
     const quantities = [].concat(req.body.ingreQuan || []);
@@ -36,10 +40,10 @@ router.get('/', async (req,res)=>{
 router.get('/:rID' , async (req,res)=>{
     const recipe = await Recipe.findById(req.params.rID).populate('ingredients')
     const comments = await Comment.find({recipe: req.params.rID}).populate('author')
-    res.render('recipe/recipe-details.ejs' , {recipe , comments})
+    res.render('recipe/recipe-details.ejs', { recipe, comments, error: req.query.error });
 })
 
-router.delete('/:rID', async(req , res) =>{
+router.delete('/:rID', isSignedIn, async(req , res) =>{
     const deletedRecipe = await Recipe.findByIdAndDelete(req.params.rID)
     res.redirect('/recipe')
 })
@@ -49,7 +53,7 @@ router.get('/:rID/update' , isSignedIn ,async (req,res)=>{
     res.render('recipe/recipe-update.ejs' , {recipe})
 })
 
-router.put('/:rID' , async (req,res)=>{
+router.put('/:rID' , isSignedIn, async (req,res)=>{
     
     const names = [].concat(req.body.ingreName || []);
     const quantities = [].concat(req.body.ingreQuan || []);

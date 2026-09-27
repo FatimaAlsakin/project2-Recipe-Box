@@ -12,11 +12,14 @@ router.get("/sign-up", (req, res) => {
 router.post("/sign-up", async (req, res) => {
   const userInDatabase = await User.findOne({ username: req.body.username });
   if (userInDatabase) {
-    return res.send("Username already taken.");
+    // return res.send("Username already taken.");
+    return res.render('auth/sign-up.ejs', { error: 'Username already taken.' });
   }
 
   if (req.body.password !== req.body.confirmPassword) {
-    return res.send("Password and Confirm Password must match");
+    // return res.send("Password and Confirm Password must match");
+    return res.render('auth/sign-up.ejs', { error: 'Password and Confirm Password must match' });
+
   }
 
   const hashedPassword = bcrypt.hashSync(req.body.password, 10);
@@ -41,16 +44,17 @@ router.post("/sign-in", async (req, res) => {
   // First, get the user from the database
   const userInDatabase = await User.findOne({ username: req.body.username });
   if (!userInDatabase) {
-    return res.send("Login failed. Please try again.");
+    // return res.send("Login failed. Please try again.");
+    return res.render('auth/sign-in.ejs', { error: 'Login failed. Please try again.' });
   }
-
   // There is a user! Time to test their password with bcrypt
   const validPassword = bcrypt.compareSync(
     req.body.password,
     userInDatabase.password
   );
   if (!validPassword) {
-    return res.send("Login failed. Please try again.");
+    // return res.send("Login failed. Please try again.");
+    return res.render('auth/sign-in.ejs', { error: 'Login failed. Please try again.' });
   }
 
   // There is a user AND they had the correct password. Time to make a session!
