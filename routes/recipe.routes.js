@@ -3,10 +3,12 @@ const Recipe = require('../models/Recipe')
 const Comment = require('../models/Comment.js')
 const isSignedIn = require('../middleware/is-signed-in.js');
 const upload = require('../config/multer.js');
+const Category = require('../models/Category.js')
 
 
-router.get('/new', isSignedIn, (req,res)=>{
-    res.render('recipe/new-recipe.ejs')
+router.get('/new', isSignedIn, async(req,res)=>{
+    const categories =  await Category.find()
+    res.render('recipe/new-recipe.ejs', {categories})
 })
 
 router.post('/', isSignedIn, upload.single('image'), async (req, res) => {
@@ -29,17 +31,21 @@ router.post('/', isSignedIn, upload.single('image'), async (req, res) => {
         steps: req.body.steps,
         owner: req.session.user._id,
         image: req.file ? '/uploads/' + req.file.filename : undefined,
+        category: req.body.category
     })
     res.redirect('/recipe')
 });
 
 router.get('/', async (req,res)=>{
-    const allRecipes = await Recipe.find()
-    res.render('recipe/all-recipes.ejs' , {allRecipes})
+    // const allRecipes = await Recipe.find()
+    const filter = req.query.category ? { category: req.query.category } : {};
+    const allRecipes = await Recipe.find(filter).populate('category');
+    const categories = await Category.find({});
+    res.render('recipe/all-recipes.ejs' , {allRecipes, categories, selectedCategory: req.query.category})
 })
 
 router.get('/:rID' , async (req,res)=>{
-    const recipe = await Recipe.findById(req.params.rID).populate('ingredients')
+    const recipe = await Recipe.findById(req.params.rID).populate('category')
     const comments = await Comment.find({recipe: req.params.rID}).populate('author')
     res.render('recipe/recipe-details.ejs', { recipe, comments, error: req.query.error });
 })
@@ -68,6 +74,7 @@ router.put('/:rID' , isSignedIn, async (req,res)=>{
         ingredients:req.body.ingredients,
         cookTime: req.body.cookTime,
         steps: req.body.steps,
+        category: req.body.category
     })
     res.redirect(`/recipe/${req.params.rID}`)
 })

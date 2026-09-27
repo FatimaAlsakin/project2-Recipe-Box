@@ -18,6 +18,14 @@
         <br>
         <textarea id="description" name="description" ><%= recipe.description %> </textarea>
         <br><br>
+        <label for="category">Category:</label>
+        <select id="category" name="category">
+            <% for (let oneCategory of categories) { %>
+            <option value="<%= oneCategory._id %>"><%= recipe.category && recipe.category.equals(oneCategory._id) ? 'selected' : '' %>>
+            <%= oneCategory.name %></option>
+            <% } %>
+        </select>
+        <br><br>
         <label for="Ingredients">Ingredients: </label>
         <br>
         <div id="ingredientList">
