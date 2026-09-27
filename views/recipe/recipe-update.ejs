@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creat new Recipe</title>
+    <title>Update Recipe</title>
 </head>
 <body>
-    <h1>Creat new Recipe</h1>
+    <%- include('../partials/navbar') %>
+    <h1>Update Recipe</h1>
 
     <form action="/recipe/<%= recipe._id %>?_method=put" method="POST">
    
