@@ -41,7 +41,13 @@ router.get('/', async (req,res)=>{
     const filter = req.query.category ? { category: req.query.category } : {};
     const allRecipes = await Recipe.find(filter).populate('category');
     const categories = await Category.find({});
-    res.render('recipe/all-recipes.ejs' , {allRecipes, categories, selectedCategory: req.query.category})
+
+    let selectedCategory = null;
+    if (req.query.category) {
+        selectedCategory = await Category.findById(req.query.category);
+    }
+
+    res.render('recipe/all-recipes.ejs' , {allRecipes, categories, selectedCategory: req.query.category , selectedCategory})
 })
 
 router.get('/:rID' , async (req,res)=>{

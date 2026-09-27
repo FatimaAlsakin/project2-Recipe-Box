@@ -7,8 +7,7 @@
 </head>
 <body>
     <%- include('../partials/navbar') %>
-    <h1>All Recipes</h1>
-
+    <h1><%= selectedCategory ? selectedCategory.name+' Recipes' : 'All Recipes' %></h1>
     <% for (let oneRecipe of allRecipes ){ %>
         <h3><%= oneRecipe.title %></h3>
         <p><%= oneRecipe.description %></p>

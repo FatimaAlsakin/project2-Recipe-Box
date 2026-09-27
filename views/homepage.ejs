@@ -9,6 +9,10 @@
     <%- include('./partials/navbar') %>
 
     <h1>Welcome to my Website</h1>
+
+    <% for (let oneCategory of categories) { %>
+    <a href="/recipe?category=<%= oneCategory._id %>"><%= oneCategory.name %></a>
+    <% } %>
     
 </body>
 </html>
