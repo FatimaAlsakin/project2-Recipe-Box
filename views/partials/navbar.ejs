@@ -1,14 +1,18 @@
 <nav>
-    
-    <a href="/">Homepage</a>
+    <a href="/" class="nav-logo" >RECIPE<span>BOX</span></a>
         
+    <div class="nav-links">
     <% if (user && user.isAdmin) { %>
     <a href="/admin">Admin Dashboard</a>
     <% } %>   
 
     <a href="/recipe">Recipes</a>
+    </div>
+
     <% if (user){ %>
     <a href="/recipe/new">New Recipe</a>
+    </div>
+    <div class="nav-auth"></div>
     <a href="/auth/sign-out">Logout</a>
 
     <% } else{ %>
@@ -16,4 +20,5 @@
     <a href="/auth/sign-in">Login</a>
 
     <% } %>
+    </div>
 </nav>

@@ -5,28 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create new Recipe</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+
 </head>
 <body>
-    <h1>Create new Recipe</h1>
+    <%- include('../partials/navbar') %>
 
-    <form action="/recipe" method="POST" enctype="multipart/form-data">
+    <h1 class="header">Create new Recipe</h1>
+
+    <form class="form" action="/recipe" method="POST" enctype="multipart/form-data">
    
         <label for="title">Title:</label>
         <input type="text" id="title" name="title">
         <br><br>
         <label for="description">Description:</label>
-        <br>
         <textarea id="description" name="description" ></textarea>
         <br><br>
         <label for="category">Category:</label>
         <select id="category" name="category">
+                <option value="" disabled selected hidden>Select a category</option>
             <% for (let oneCategory of categories) { %>
             <option value="<%= oneCategory._id %>"><%= oneCategory.name %></option>
             <% } %>
         </select>
         <br><br>
         <label for="Ingredients">Ingredients: </label>
-        <br>
         <div id="ingredientList">
             <div class="ingredientRow">
                 <label>Name:</label>
@@ -35,21 +38,31 @@
                 <input type="text" name="ingreQuan[]">
             </div>
         </div>
+        <br>
         <button type="button" onclick="addIngredientRow()">Add Ingredient</button>
         <br><br>
-        <br><br>
-        <label for="cookTime">Cook Time:</label>
+        <label for="cookTime">Cook Time <span style="font-size: x-small;">'In minuts'</span> :</label>
         <input type="number" name="cookTime" id="cookTime">
         <br><br>
         <label for="steps">Steps:</label>
         <textarea id="steps" name="steps" ></textarea>
         <br><br>
         <label for="image">Upload Image</label>
-        <input type="file" id="image" name="image" value="" required />
-        <br>
+        <input type="file" id="image" name="image"/>
+        <br><br>
         <button type="submit" class="primary">Create Recipe</button>
 
-  </form>
+    </form>
+
+    <h3 class="back"><a href="/recipe"> ⬅ Go Back</a></h3>
+    <br>
+    <footer class="home-footer">
+        <div>
+            <h4>Recipe Box</h4>
+            <p>Delicious ideas, one recipe at a time.</p>
+        </div>
+        <small>© <%= new Date().getFullYear() %> Recipe Box</small>
+    </footer>
 
   <% const displayError = typeof error !== 'undefined' ? error : ''; %>
 <div id="page-error" data-error="<%= displayError %>"></div>
@@ -60,11 +73,7 @@
     const pageError = document.getElementById('page-error').dataset.error;
     if (pageError) notyf.error(pageError);
 </script>
-
-</body>
-</html>
-
-
+    
     <script>
         function addIngredientRow() {
             const list = document.getElementById('ingredientList');
@@ -80,3 +89,6 @@
             console.log(list)
         }
     </script>
+    
+</body>
+</html>

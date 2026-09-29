@@ -1,35 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <title>Sign Up</title>
-  </head>
-  <body>
-    <%- include('../partials/navbar') %>
-    <h1>Create a new account!</h1>
-    <form action="/auth/sign-up" method="post">
-      <label for="username">Username:</label>
-      <input type="text" name="username" id="username" />
-      <label for="password">Password:</label>
-      <input type="password" name="password" id="password" />
-      <label for="confirmPassword">Confirm Password:</label>
-      <input type="password" name="confirmPassword" id="confirmPassword" />
-      <button type="submit">Sign up</button>
-    </form>
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-top">
+        <a href="/auth/sign-in" class="auth-tab">Log in</a>
+        <span class="auth-switch">⇄</span>
+        <a href="/auth/sign-up" class="auth-tab active">Sign up</a>
+    </div>
+
+    <main class="auth-card">
+        <h1>Sign up</h1>
+        <form action="/auth/sign-up" method="POST" class="auth-form">
+            <input type="text" name="username" id="username" placeholder="Username">
+            <input type="password" name="password" id="password" placeholder="Password">
+            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+
+            <button type="submit">Let's go!</button>
+        </form>
+    </main>
+
+    <br><br>
+    <h3 class="back"><a href="/" > ⬅ Back to homepage</a></h3>
 
     <% const signupError = typeof error !== 'undefined' ? error : ''; %>
+
     <div id="signup-error" data-error="<%= signupError %>"></div>
+
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
     <script>
-      const notyf = new Notyf({
-        position: {
-            x: 'right',
-            y: 'top'
-        }});
-      const signupError = document.getElementById('signup-error').dataset.error;
-      if (signupError) notyf.error(signupError);
+        const notyf = new Notyf({ position: { x: 'right', y: 'top'}});
+
+        const signupError = document.getElementById('signup-error').dataset.error;
+
+        if (signupError) 
+            notyf.error(signupError);
+        
     </script>
-  </body>
+
+</body>
 </html>

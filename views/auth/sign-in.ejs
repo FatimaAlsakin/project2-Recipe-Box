@@ -1,33 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
     <link rel="stylesheet" href="/css/style.css">
-  </head>
-  <body>
-    <%- include('../partials/navbar') %>
-    <h1>Sign in</h1>
-    <form action="/auth/sign-in" method="POST">
-      <label for="username">Username:</label>
-      <input type="text" name="username" id="username" />
-      <label for="password">Password:</label>
-      <input type="password" name="password" id="password" />
-      <button type="submit">Sign in</button>
-    </form>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-top">
+        <a href="/auth/sign-in" class="auth-tab active">Log in</a>
+        <span class="auth-switch">⇄</span>
+        <a href="/auth/sign-up" class="auth-tab">Sign up</a>
+    </div>
+
+    <main class="auth-card">
+        <h1>Log in</h1>
+        <form action="/auth/sign-in" method="POST" class="auth-form">
+            <input type="text" name="username" id="username" placeholder="Username">
+            <input type="password" name="password" id="password" placeholder="Password">
+            <button type="submit">Let's go!</button>
+        </form>
+    </main>
+
+    <br><br>
+    <h3 class="back"><a href="/" > ⬅ Back to homepage</a></h3>
 
     <% const signinError = typeof error !== 'undefined' ? error : ''; %>
+
     <div id="signin-error" data-error="<%= signinError %>"></div>
+
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
     <script>
-      const notyf = new Notyf({
-        position: {
-            x: 'right',
-            y: 'top'
-        }});
-      const signinError = document.getElementById('signin-error').dataset.error;
-      if (signinError) notyf.error(signinError);
+        const notyf = new Notyf({ position: { x: 'right', y: 'top'}});
+
+        const signinError = document.getElementById('signin-error').dataset.error;
+
+        if (signinError) 
+            notyf.error(signinError);
+        
     </script>
-  </body>
+
+</body>
 </html>

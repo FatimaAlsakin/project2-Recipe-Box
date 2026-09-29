@@ -9,23 +9,40 @@
 <body>
 
     <%- include('../partials/navbar') %>
+    <main class="admin-user-list"></main>
+    <div>    
+        <h1 class="header">Admin Dashboard</h1>
+    </div>
 
-    <h1>Admin Dashboard</h1>
-
+    <br>
+    <div class="admin-user-list">
     <% for ( let oneUser of allUsers ){ %>
         <% if(! oneUser.isDeleted) {%>
-       <h3>username:  <%= oneUser.username %></h3>
-       <p>Admin: <%= oneUser.isAdmin %></p>
+        <div class="admin-user-card">
+            <div class="admin-user-info">
+            <h3>username:  <%= oneUser.username %></h3>
+            <h4 class="admin-badge">Admin: <%= oneUser.isAdmin %></h4>
+            </div>
 
-       <div>
-       <form action="/admin/toggle-admin/<%=oneUser._id %>?_method=PUT" method="post">
-            <button><%= oneUser.isAdmin ? "Remove Admin" : "Make Admin" %></button>
-       </form>
-       
-       <form action="/admin/delete/<%=oneUser._id %>?_method=PUT" method="post">
-            <button>Delete User </button>
-       </form>
-       </div>
+            <div class="admin-user-actions">
+            <form action="/admin/toggle-admin/<%=oneUser._id %>?_method=PUT" method="post" class="admin-form">
+                    <button class="adminBTN"><%= oneUser.isAdmin ? "Remove Admin" : "Make Admin" %></button>
+            </form>
+            
+            <form action="/admin/delete/<%=oneUser._id %>?_method=PUT" method="post" class="admin-form">
+                    <button class="adminBTN">Delete User </button>
+            </form>
+            </div>
+        </div>
     <% }} %>
+
+    <footer class="home-footer">
+        <div>
+            <h4>Recipe Box</h4>
+            <p>Delicious ideas, one recipe at a time.</p>
+        </div>
+        <small>© <%= new Date().getFullYear() %> Recipe Box</small>
+    </footer>
+
 </body>
 </html>

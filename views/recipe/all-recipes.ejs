@@ -4,15 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
-    <title>Document</title>
+    <title>Recipes</title>
 </head>
+
 <body>
+
     <%- include('../partials/navbar') %>
-    <h1><%= selectedCategory ? selectedCategory.name+' Recipes' : 'All Recipes' %></h1>
-    <% for (let oneRecipe of allRecipes ){ %>
-        <h3><%= oneRecipe.title %></h3>
-        <p><%= oneRecipe.description %></p>
-        <a href="/recipe/<%= oneRecipe._id %>">View Details</a>
-    <% } %>
+    <main class="recipes-page">
+        <section class="recipes-header">
+        <h1> <%= selectedCategory ? selectedCategory.name + ' Recipes': 'All Recipes'%></h1>
+        <p>Discover delicious recipes and find something new to cook.</p>
+        </section>
+
+        <div class="recipe-categories">
+        <a href="/recipe" class="recipe-category">All</a>
+
+        <% if (typeof categories !== 'undefined') { %>
+            <% for (let oneCategory of categories) { %>
+                <a href="/recipe?category=<%= oneCategory._id %>"class="recipe-category">
+                <%= oneCategory.name %></a>
+        <% }} %>
+        </div>
+
+        <section class="recipe-grid">
+        <% for (let oneRecipe of allRecipes) { %>
+            <article class="recipe-card">
+            <div class="recipe-card-image">
+                <% if (oneRecipe.image) { %>
+                    <img src="<%= oneRecipe.image %>" alt="<%= oneRecipe.title %>" >
+                    <% } else { %>
+                    <div class="recipe-no-image" >🍽️</div>
+                <% } %>
+                </div>
+
+                <div class="recipe-card-content">
+                    <h2><%= oneRecipe.title %></h2>
+                    <p><%= oneRecipe.description %></p>
+
+                    <div class="recipe-card-bottom">
+                    <% if (oneRecipe.cookTime) { %>
+                        <span class="recipe-time">⏱ <%= oneRecipe.cookTime %> min</span>
+                    <% } %>
+
+                    <a href="/recipe/<%= oneRecipe._id %>" class="recipe-view-btn">View Recipe</a>
+                    </div>
+                </div>
+                </article>
+            <% } %>
+        </section>
+    </main>
+
+    <footer class="home-footer">
+        <div>
+            <h4>Recipe Box</h4>
+            <p>Delicious ideas, one recipe at a time.</p>
+        </div>
+
+        <small>© <%= new Date().getFullYear() %> Recipe Box</small>
+    </footer>
+
 </body>
 </html>

@@ -14,7 +14,8 @@ router.get('/new', isSignedIn, async(req,res)=>{
 router.post('/', isSignedIn,upload.single('image'), async (req, res) => {
 
     if (!req.body.title || !req.body.description || !req.body.steps || !req.body.ingreName || !req.body.ingreQuan) {
-        return res.render('recipe/new-recipe.ejs', { error: 'Title, Ingredients, and steps are required.' });
+        const categories = await Category.find();
+        return res.render('recipe/new-recipe.ejs', { error: 'Title, Ingredients, and steps are required.' , categories});
     }
 
     const names = [].concat(req.body.ingreName || []);
@@ -63,16 +64,20 @@ router.delete('/:rID', isSignedIn, async(req , res) =>{
 
 router.get('/:rID/update' , isSignedIn ,async (req,res)=>{
     const recipe = await Recipe.findById(req.params.rID).populate('ingredients')
-    res.render('recipe/recipe-update.ejs' , {recipe})
+    const categories = await Category.find();
+    res.render('recipe/recipe-update.ejs' , {recipe , categories})
 })
 
-router.put('/:rID' , isSignedIn, async (req,res)=>{
+router.put('/:rID' , isSignedIn, upload.single('image'), async (req,res)=>{
     
     const names = [].concat(req.body.ingreName || []);
     const quantities = [].concat(req.body.ingreQuan || []);
     req.body.ingredients = names
         .map((name, i) => ({ name, quantity: quantities[i] }))
         .filter(ing => ing.name.trim() !== '');
+    
+
+    const image = req.file ? req.file.path : Recipe.findById(req.params.rID).image;
 
     const updatedRecipe = await Recipe.findByIdAndUpdate(req.params.rID , {
         title: req.body.title,
@@ -80,8 +85,9 @@ router.put('/:rID' , isSignedIn, async (req,res)=>{
         ingredients:req.body.ingredients,
         cookTime: req.body.cookTime,
         steps: req.body.steps,
-        category: req.body.category
-    })
+        category: req.body.category,
+        image: image
+    })   
     res.redirect(`/recipe/${req.params.rID}`)
 })
 

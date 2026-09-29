@@ -4,16 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
-    <title>Home</title>
+    <title>Recipe Box</title>
 </head>
+
 <body>
+
     <%- include('./partials/navbar') %>
 
-    <h1>Welcome to my Website</h1>
+    <div class="home-announce">
+        Discover delicious recipes and create your own!
+    </div>
 
-    <% for (let oneCategory of categories) { %>
-    <a href="/recipe?category=<%= oneCategory._id %>"><%= oneCategory.name %></a>
-    <% } %>
-    
+    <section class="home-hero">
+        <div class="home-hero-content">
+            <h1>
+                Delicious recipes
+                <br>
+                made for you
+            </h1>
+
+            <p>
+                Discover new recipes, explore different categories,
+                and share your favourite meals with the Recipe Box community.
+            </p>
+
+            <div class="home-actions">
+                <a href="/recipe" class="home-btn">Explore Recipes</a>
+                <a href="/recipe/new" class="home-btn home-btn-ghost">Create Recipe</a>
+            </div>
+        </div>
+                    
+        <img id="img" src="/images/img1.png" alt="Delicious food">
+
+    </section>
+
+
+    <section class="home-menu">
+
+        <h2>Explore Categories</h2>
+        <p>What are you craving today?</p>
+
+        <div class="home-tabs">
+            <% for (let oneCategory of categories) { %>
+                <a href="/recipe?category=<%= oneCategory._id %>" class="filter-pill"><%= oneCategory.name %></a>
+            <% } %>
+        </div>
+    </section>
+
+    <section class="home-values">
+        <div>
+            <strong>🍴</strong>
+            <span>Discover Recipes</span>
+        </div>
+
+        <div>
+            <strong>❤️</strong>
+            <span>Save Your Favorites</span>
+        </div>
+
+        <div>
+            <strong>👩‍🍳</strong>
+            <span>Create Your Own</span>
+        </div>
+
+        <div>
+            <strong>🌎</strong>
+            <span>Share With Others</span>
+        </div>
+    </section>
+
+
+    <section class="home-story">
+        <h2>Made for food lovers</h2>
+        <p>
+            Recipe Box makes it easy to find something delicious to cook.
+            Browse recipes, discover new ideas, and create your own recipes
+            for everyone to enjoy.
+        </p>
+    </section>
+
+    <footer class="home-footer">
+
+        <div>
+            <h4>Recipe Box</h4>
+            <p>Delicious ideas, one recipe at a time.</p>
+        </div>
+
+        <small>
+            © <%= new Date().getFullYear() %> Recipe Box
+        </small>
+    </footer>
+
 </body>
 </html>

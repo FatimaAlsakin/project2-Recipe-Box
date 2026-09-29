@@ -7,7 +7,7 @@ const storage = new CloudinaryStorage({
 
     params: {
         folder: "RecipeBox",
-        allowed_formats: ["jpg", "jpeg", "png"]
+        allowed_formats: ["jpg", "jpeg", "png" , "webp"]
     }
 })
 

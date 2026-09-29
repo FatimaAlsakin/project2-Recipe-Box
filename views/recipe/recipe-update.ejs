@@ -8,9 +8,9 @@
 </head>
 <body>
     <%- include('../partials/navbar') %>
-    <h1>Update Recipe</h1>
+    <h1 class="header">Update Recipe</h1>
 
-    <form action="/recipe/<%= recipe._id %>?_method=put" method="POST">
+    <form class="form" action="/recipe/<%= recipe._id %>?_method=put" method="POST"  enctype="multipart/form-data">
    
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" value="<%= recipe.title %>">
@@ -49,10 +49,35 @@
         <br><br>
         <label for="steps">Steps:</label>
         <textarea id="steps" name="steps" ><%= recipe.steps %></textarea>
+        <br><br>
+        <label for="image">Recipe Image:</label>
+
+    <% if (recipe.image) { %>
         <br>
+        <img
+            src="<%= recipe.image %>"
+            alt="<%= recipe.title %>"
+            width="200"
+        >
+        <br><br>
+    <% } %>
+
+    <input type="file" id="image" name="image" accept="image/*">
+
+    <br><br>
         <button type="submit" class="primary">Update Recipe</button>
 
   </form>
+
+    <h3 class="back"><a href="javascript:history.back()" > ⬅ Go Back</a></h3>
+    <br>
+    <footer class="home-footer">
+        <div>
+            <h4>Recipe Box</h4>
+            <p>Delicious ideas, one recipe at a time.</p>
+        </div>
+        <small>© <%= new Date().getFullYear() %> Recipe Box</small>
+    </footer>
 </body>
 </html>
 
