@@ -5,9 +5,9 @@
 Recipe Box is a full-stack CRUD app for saving, organizing, and discussing recipes. Signed-in users can create recipes with ingredients, step-by-step instructions, cook time, and a category, then edit or delete the recipes they own. Any signed-in user can leave comments on any recipe, but can only delete comments they wrote themselves. Guests can browse recipes and read comments without an account, but cannot create, edit, or delete anything.
 
 ## Screenshots
-<img src="/projects/project2/assets/Screenshot 1.png">
-<img src="/projects/project2/assets/Screenshot 2.png">
-<img src="/projects/project2/assets/Screenshot 3.png">
+<img src="assets/Screenshot 1.png">
+<img src="assets/Screenshot 2.png">
+<img src="assets/Screenshot 3.png">
 
 ## Technologies Used
 1. Node.js
@@ -36,7 +36,7 @@ Recipe Box is a full-stack CRUD app for saving, organizing, and discussing recip
 
 
 ## Database Design
-<img src="/projects/project2/assets/Untitled Diagram-Page-3.drawio.png">
+<img src="assets/Untitled Diagram-Page-3.drawio.png">
 
 
 ## Routes
