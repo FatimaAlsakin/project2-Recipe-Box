@@ -38,7 +38,6 @@ router.post('/', isSignedIn,upload.single('image'), async (req, res) => {
 });
 
 router.get('/', async (req,res)=>{
-    // const allRecipes = await Recipe.find()
     const filter = req.query.category ? { category: req.query.category } : {};
     const allRecipes = await Recipe.find(filter).populate('category');
     const categories = await Category.find({});
