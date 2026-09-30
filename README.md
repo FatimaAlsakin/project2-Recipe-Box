@@ -92,3 +92,11 @@ Recipe Box is a full-stack CRUD app for saving, organizing, and discussing recip
 ## Future Enhancements
 1. Search recipes by title or ingredient
 2. Ratings and favorites
+
+
+## Extra Features
+1. Role Management (different roles: admin, user)
+2. Admin Dashboard
+3. Toasts
+4. Photo Upload
+5. Exporting into Excel or PDF
